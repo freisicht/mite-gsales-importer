@@ -1,0 +1,75 @@
+// main: main.sass
+
+body
+	background-color: $c-clean
+
+.header
+	height: 60px
+	color: $c-clean
+	z-index: 99
+	width: 100%
+	position: fixed
+	top: 0
+	background-color: $c-dark
+
+	&.info
+		background-color: $c-info
+
+	&.success
+		background-color: $c-success
+
+	&.warning
+		background-color: $c-warning
+
+	.title
+		box-sizing: border-box
+		font-size: 15px
+		font-weight: 400
+		line-height: 26px
+		letter-spacing: 0.1em
+		padding: 17px 20px
+		float: left
+		background-color: $c-dark
+
+		i
+			display: block
+			float: left
+			margin: 0 10px 0 0
+
+	.message
+		padding: 17px 20px
+		float: left
+		font-style: italic
+
+.sidebar
+	width: 140px
+	height: 100vh
+	position: fixed
+	left: 0
+	top: 60px
+	background-color: $c-basicbg
+	z-index: 0
+
+	.menu
+		a
+			display: block
+			height: 140px
+			text-decoration: none
+			color: $c-neutral
+			text-align: center
+			font-size: 14px
+
+			i
+				display: block
+				font-size: 45px
+				padding-top: 35px
+
+			&.selected,
+			&:hover
+				color: $c-info
+				background-color: lighten($c-basicbg, 2)
+
+.content
+	+cf
+	max-width: $content
+	padding: 140px 70px 70px 210px

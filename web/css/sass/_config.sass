@@ -1,0 +1,38 @@
+// main: main.sass
+
+$jeet-gutter: 4
+$jeet-parent-first: false
+$jeet-layout-direction: "LTR"
+$jeet-max-width: 1200px
+
+// Font Paths
+$roboto-font-path: "fonts/roboto"
+$material-icons-path: "fonts/material-icons"
+
+// Breakpoints
+$large: 1200px
+$medium: 992px
+$small: 768px
+
+$content: 1200px
+
+// Colors
+$c-dark: #494949
+$c-font: #494949
+$c-neutral: #AAAAAA
+$c-basicbg: #F6F6F6
+$c-line: #EBEBEB
+$c-clean: #ffffff
+
+$c-info: #EE9B12
+$c-warning: #DF5252
+$c-success: #6FB521
+
+// Mixins
+
+=vendor-prefix($name, $argument)
+	-webkit-#{$name}: #{$argument}
+	-ms-#{$name}: #{$argument}
+	-moz-#{$name}: #{$argument}
+	-o-#{$name}: #{$argument}
+	#{$name}: #{$argument}

@@ -1,0 +1,12 @@
+.idea/
+composer.lock
+logs/
+propel.yaml
+model/classes/Freisicht/InvoiceImporter/Base
+model/classes/Freisicht/InvoiceImporter/Map
+vendor/
+model/migrations/
+.DS_Store
+config/propel/config.php
+config/apis/gsales.json
+config/apis/mite.json

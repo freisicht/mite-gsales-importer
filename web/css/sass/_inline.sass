@@ -1,0 +1,132 @@
+// main: main.sass
+
+body
+	font-family: 'Roboto', sans-serif
+	font-weight: 400
+	font-size: 16px
+	line-height: 26px
+	color: $c-font
+
+a
+	color: $c-info
+	text-decoration: none
+
+h1
+	font-size: 45px
+	font-weight: 300
+	border-bottom: 1px solid $c-line
+	padding: 0 0 30px 0
+	margin: 0 0 60px 0
+
+p
+	&.success
+		color: $c-success
+
+	&.info
+		color: $c-info
+
+	&.warning
+		color: $c-warning
+
+i.loading
+	color: $c-info
+	font-size: 30px
+	animation-name: spin
+	animation-duration: 1000ms
+	animation-iteration-count: infinite
+	animation-timing-function: linear
+
+@keyframes spin
+	from
+		transform: rotate(360deg)
+	to
+		transform: rotate(0deg)
+
+.not_selected
+	color: $c-neutral
+	font-style: italic
+
+// forms
+
+input[type="checkbox"]
+	display: none
+
+	& + label
+		+material-icons
+		margin: 6px 0 0 0
+		cursor: pointer
+
+	& + label:before
+		content: "\E835"
+		color: $c-neutral
+
+	&:checked + label
+		&.pos:before
+			content: "\E834"
+			color: $c-success
+
+		&.neg:before
+			content: "\E909"
+			color: $c-warning
+
+select
+	width: 75%
+	border-radius: 0
+	border: none
+	appearance: none
+	+vendor-prefix(appearance, none)
+	background: $c-basicbg
+	padding: 5px 10px
+	cursor: pointer
+	outline: none
+
+	& + label
+		+material-icons
+		color: $c-neutral
+		pointer-events: none
+
+	& + label:before
+		content: "\E5CF"
+		position: absolute
+		margin: -17px 0 0 -34px
+
+	&:disabled
+		color: red
+
+// buttons
+
+button
+	display: inline-block
+	color: $c-clean
+	background-color: $c-neutral
+	border: none
+	padding: 5px 15px
+	font-size: 14px
+	font-weight: 500
+	letter-spacing: 0.05em
+	margin-top: 15px
+	margin-bottom: 15px
+	transition: ease all 0.3s
+
+	&.right
+		float: right
+		margin-left: 15px
+
+	&.left
+		float: left
+		margin-right: 15px
+
+	&.warning
+		background-color: $c-warning
+		&:hover
+			background-color: darken($c-warning, 15)
+
+	&.info
+		background-color: $c-info
+		&:hover
+			background-color: darken($c-info, 15)
+
+	&.success
+		background-color: $c-success
+		&:hover
+			background-color: darken($c-success, 15)

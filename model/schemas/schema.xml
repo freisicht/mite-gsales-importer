@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="default" defaultIdMethod="native" defaultPhpNamingMethod="underscore" namespace="Freisicht\InvoiceImporter">
+  <table name="customer_option" idMethod="native" phpName="CustomerOption">
+    <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="mite_id" phpName="MiteId" type="INTEGER" required="true"/>
+    <column name="gsales_id" phpName="GsalesId" type="INTEGER" default="null"/>
+    <column name="skip" phpName="Skip" type="BOOLEAN" default="false"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="MYISAM"/>
+      <parameter name="Charset" value="utf8"/>
+    </vendor>
+  </table>
+  <table name="project_option" idMethod="native" phpName="ProjectOption">
+    <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="customer_option_id" phpName="CustomerOptionId" type="INTEGER" required="true"/>
+    <column name="mite_project_id" phpName="MiteProjectId" type="INTEGER" required="true"/>
+    <column name="skip" phpName="Skip" type="BOOLEAN" default="false"/>
+    <column name="separate" phpName="Separate" type="BOOLEAN" default="false"/>
+    <foreign-key foreignTable="customer_option">
+      <reference local="customer_option_id" foreign="id"/>
+    </foreign-key>
+    <vendor type="mysql">
+      <parameter name="Engine" value="MYISAM"/>
+      <parameter name="Charset" value="utf8"/>
+    </vendor>
+  </table>
+</database>

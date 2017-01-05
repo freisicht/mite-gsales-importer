@@ -1,0 +1,37 @@
+propel:
+    database:
+        connections:
+            default:
+                adapter: mysql
+                settings:
+                    charset: utf8
+                    queries:
+                        utf8: "SET NAMES utf8 COLLATE utf8_unicode_ci, COLLATION_CONNECTION = utf8_unicode_ci, COLLATION_DATABASE = utf8_unicode_ci, COLLATION_SERVER = utf8_unicode_ci"
+                classname: Propel\Runtime\Connection\ConnectionWrapper
+                dsn: "mysql:host=localhost;dbname=dbname"
+                user: user
+                password: password
+                attributes:
+    reverse:
+        connection: default
+    runtime:
+        defaultConnection: default
+        connections:
+            - default
+        log:
+            defaultLogger:
+                type: stream
+                path: /Library/WebServer/Documents/invoice_importer/logs/propel.log
+                level: 300
+    generator:
+        defaultConnection: default
+        connections:
+            - default
+        schema:
+            autoPackage: true
+    paths:
+        phpConfDir:     config/propel
+        sqlDir:         model/sql
+        migrationDir:   model/migrations
+        schemaDir:      model/schemas
+        phpDir:         model/classes

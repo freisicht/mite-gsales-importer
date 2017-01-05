@@ -1,0 +1,72 @@
+<script src="../javascript/vuejs/vue-resource.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<div id="customers-options" class="content">
+    <h1>Import</h1>
+    <label for="date-from">Von: </label><input type="text" id="date-from" v-bind:disabled="isLoading"> <label for="date-to">Bis: </label><input type="text" id="date-to" v-bind:disabled="isLoading"> <button v-bind:class="{ success: !isLoading }" v-bind:disabled="isLoading" v-on:click="onClickSearchImportEntries">Suchen</button>
+    <table class="main" v-show="rows.length > 0">
+        <tr>
+            <th class="center">Nr.</th>
+            <th>Mite Kunde</th>
+            <th>Gsales Kunde</th>
+            <th>Projekt</th>
+            <td class="center"><input v-bind:checked="checkAllClass != ''" v-on:click="updateCheckAll(true)" type="checkbox" id="check-all"><label v-bind:class="[checkAllClass]" for="check-all"></label></td>
+        </tr>
+        <tr v-for="row in rows" v-bind:class="{ sub: !(row.firstCustomerEntry || row.projectOption.Separate) }" v-if="row.hasProjects">
+            <td v-if="(row.firstCustomerEntry || row.projectOption.Separate)" class="center">{{ row.invoiceIndex }}</td>
+            <td v-if="!(row.firstCustomerEntry || row.projectOption.Separate)"></td>
+
+            <td v-if="(row.firstCustomerEntry || row.projectOption.Separate)">{{ row.miteCustomer.name }}</td>
+            <td v-if="!(row.firstCustomerEntry || row.projectOption.Separate)"></td>
+
+            <td v-if="!(row.firstCustomerEntry || row.projectOption.Separate)"></td>
+            <td v-if="(row.firstCustomerEntry || row.projectOption.Separate) && row.gsalesCustomer != null">
+                {{ row.gsalesCustomer.company }} - {{ row.gsalesCustomer.firstname }} {{ row.gsalesCustomer.lastname }}
+            </td>
+            <td v-if="(row.firstCustomerEntry || row.projectOption.Separate) && row.gsalesCustomer == null"></td>
+
+            <td>{{ row.miteProject.name }}</td>
+
+            <td class="center"><input v-bind:checked="!row.projectOption.Skip ? 'checked' : ''" v-on:click="row.projectOption.Skip = !row.projectOption.Skip; updateCheckAll()" type="checkbox" v-bind:id="'import-project-' + row.index"><label class="pos" v-bind:for="'import-project-' + row.index" title="Alle ausgewählten Rechnungen werden erstellt"></label></td>
+        </tr>
+    </table>
+    <form method="POST" action="runrun">
+        <input type="hidden" name="options" id="importOptions">
+        <input type="hidden" name="try" value="10000">
+        <button class="right success" v-show="rows.length > 0" v-on:click="setImporterOptions">Importieren</button>
+    </form>
+</div>
+
+<script src="../javascript/apps/Main.js" type="text/javascript"></script>
+<script type="text/javascript">
+    let d = new Date();
+
+    d.setDate(1);
+    d.setHours(-1);
+    let firstDay = 1;
+    let lastDay = d.getDate();
+    let month = d.getMonth() + 1;
+    let year = d.getFullYear();
+
+    let dateFrom = month + '/' + firstDay + '/' + year;
+    let dateTo = month + '/' + lastDay + '/' + year;
+
+    customersOptionsApp.useDateRange = true;
+
+    sidebarApp.menu = "importer";
+
+    headerApp.addSuccess("Bitte wähle zunächst einen Zeitraum");
+
+    $( function() {
+        let dateFromEl = $( "#date-from" );
+        let dateToEl = $( "#date-to" );
+        dateFromEl.datepicker({ defaultDate: dateFrom });
+        dateToEl.datepicker({ defaultDate: dateTo });
+        dateFromEl.datepicker('setDate', dateFrom);
+        dateFromEl.datepicker('option', 'dateFormat', 'dd.mm.yy');
+        dateToEl.datepicker('setDate', dateTo);
+        dateToEl.datepicker('option', 'dateFormat', 'dd.mm.yy');
+    } );
+</script>

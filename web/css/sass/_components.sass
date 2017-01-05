@@ -1,0 +1,85 @@
+// main: main.sass
+
+table.main, table.small
+	td
+		position: relative
+
+table.main
+	width: 100%
+
+	tr
+		border-top: 1px solid $c-line
+
+		&.sub
+			border-top: 0
+
+		&:first-child
+			border-top: 0
+
+		&:last-child
+			border-bottom: 1px solid $c-line
+
+		&.selected
+			background-color: lighten($c-info, 45)
+
+		&.details
+			background-color: $c-basicbg
+
+		&.error
+			border-top: 1px solid $c-warning
+			border-bottom: 1px solid $c-warning
+			background-color: lighten($c-warning, 35)
+
+	th, td
+		padding: 7px 10px
+
+		&.center
+			text-align: center
+
+	th
+		color: $c-neutral
+		text-align: left
+		font-size: 14px
+		line-height: 20px
+		font-weight: 400
+		text-transform: uppercase
+		letter-spacing: 0.05em
+
+table.small
+	width: 100%
+	font-size: 14px
+
+	tr,
+	tr:last-child
+		border-top: 0
+		border-bottom: 0
+
+	th
+		color: $c-font
+		font-weight: 600
+
+	th, td
+		padding: 2px 5px
+
+ul.dropdown_list
+	height: 200px
+	overflow: scroll
+	position: absolute
+	left: 0
+	padding: 20px
+	list-style: none
+	margin: 0
+	width: 400px
+	background-color: #fff
+	z-index: 2
+	border: 1px solid $c-line
+	box-shadow: 0 5px 15px lighten($c-dark, 50)
+	font-size: 0.8em
+
+	li
+		border-bottom: 1px solid $c-line
+		padding: 0 10px
+
+		&:hover
+			cursor: pointer
+			background-color: $c-line

@@ -1,0 +1,49 @@
+<script src="../javascript/vuejs/vue.min.js" type="text/javascript" xmlns:v-bind="http://www.w3.org/1999/xhtml"></script>
+<script src="../javascript/vuejs/vue-resource.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
+<div id="customers-options" class="content" v-show="rows.length > 0">
+    <h1>Optionen</h1>
+    <table class="main">
+        <tr>
+            <th class="center"><i class="material-icons">&#xE044;</i></th>
+            <th>MiteKunde</th>
+            <th>GsalesKunde</th>
+            <th>ProjectName</th>
+            <th class="center"><i class="material-icons">&#xE02F;</i></th>
+            <th class="center"><i class="material-icons">&#xE044;</i></th>
+        </tr>
+        <tr v-for="row in rows" v-bind:class="{ sub: !row.firstCustomerEntry, error: row.customerOption.GsalesId == null }">
+            <td v-if="row.firstCustomerEntry" class="center"><input v-model="row.customerOption.Skip" v-on:change="requestOptions(true)" type="checkbox" v-bind:id="'skip-customer-' + row.index"><label class="neg" v-bind:for="'skip-customer-' + row.index" title="Kein Projekt des Kunden wird beim Importer angehakt sein."></label></td>
+            <td v-if="!row.firstCustomerEntry"></td>
+
+            <td v-if="row.firstCustomerEntry">{{ row.miteCustomer.name }} {{ row.miteCustomer.id }}</td>
+            <td v-if="!row.firstCustomerEntry"></td>
+
+            <td v-if="row.firstCustomerEntry">
+                <button v-bind:class="{warning: row.customerOption.GsalesId == null}" v-show="!row.searching" v-on:click="row.searching = true; focusCustomerSearch(row.index);">{{ getGsalesCustomerTitleById(row.customerOption.GsalesId) }}</button>
+                <input v-bind:id="'gsales-customer-search-' + row.index" v-on:blur="deFocusCustomerSearch(row)" v-show="row.searching" type="text" v-model="row.searchKeyword">
+                <ul class="dropdown_list" v-if="row.searching">
+                    <li v-on:click="setGsalesCustomer(row, null)">Kein Kunde zugewiesen</li>
+                    <li v-for="gsalesCustomer in getGsalesCustomersByKeyword(row.searchKeyword)" v-on:click="setGsalesCustomer(row, gsalesCustomer)">{{ generateGsalesCustomerTitle(gsalesCustomer) }}</li>
+                    <!--<li v-for="gsalesCustomer in data.gsalesCustomers" v-if="checkKeywordMatch(row.searchKeyword, gsalesCustomer)">{{ gsalesCustomer.company }} - {{ gsalesCustomer.firstname }} {{ gsalesCustomer.lastname }}</li>-->
+                </ul>
+            </td>
+            <td v-if="!row.firstCustomerEntry"></td>
+
+            <td v-if="row.hasProjects">{{ row.miteProject.name }}</td>
+            <td v-if="!row.hasProjects"  style="color: #EE9B12">Kunde hat keine Projekte</td>
+
+            <td class="center" v-if="!row.customerOption.Skip && row.hasProjects"><input v-model="row.projectOption.Separate" v-on:change="setSeparate(row)" type="checkbox" v-bind:id="'separate-project-' + row.index"><label class="pos" v-bind:for="'separate-project-' + row.index" title="Wenn ausgewählt, wird dieses Projekt beim Importer nicht angehakt sein."></label></td>
+            <td class="center" v-if="row.customerOption.Skip"></td>
+
+            <td class="center" v-if="!row.customerOption.Skip && row.hasProjects"><input v-model="row.projectOption.Skip" v-on:change="setSkip(row)" type="checkbox" v-bind:id="'skip-project-' + row.index"><label class="neg" v-bind:for="'skip-project-' + row.index"  title="Wenn ausgewählt, wird dieses Projekt beim Importer separat aufgeliset und erzeugt beim Importdurchlauf eine eigene Rechnung."></label></td>
+            <td class="center" v-if="row.customerOption.Skip"></td>
+        </tr>
+    </table>
+</div>
+
+<script src="../javascript/apps/Main.js" type="text/javascript"></script>
+<script type="text/javascript">
+    customersOptionsApp.requestOptions();
+</script>

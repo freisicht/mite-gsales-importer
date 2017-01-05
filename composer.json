@@ -1,0 +1,11 @@
+{
+    "require": {
+        "propel/propel": "~2.0@dev",
+        "slim/slim": "3.*",
+        "slim/php-view": "^2.0",
+        "monolog/monolog": "1.11.0"
+    },
+    "autoload": {
+    	"classmap": ["model/classes/", "src/classes", "src/interfaces"]
+  	}
+}
