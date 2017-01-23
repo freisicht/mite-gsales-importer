@@ -7,6 +7,8 @@
  * Time: 12:00
  */
 
+require_once '../auto_installer.php';
+
 require_once "../vendor/autoload.php";
 require_once '../config/propel/config.php';
 
@@ -19,7 +21,7 @@ $configuration = [
         // monolog settings
         'logger' => [
             'name' => 'app',
-            'path' => __DIR__ . '/log/app.log',
+            'path' => __DIR__ . '/logs/app.log',
         ]
     ]
 ];

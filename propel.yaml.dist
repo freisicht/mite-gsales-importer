@@ -8,9 +8,9 @@ propel:
                     queries:
                         utf8: "SET NAMES utf8 COLLATE utf8_unicode_ci, COLLATION_CONNECTION = utf8_unicode_ci, COLLATION_DATABASE = utf8_unicode_ci, COLLATION_SERVER = utf8_unicode_ci"
                 classname: Propel\Runtime\Connection\ConnectionWrapper
-                dsn: "mysql:host=localhost;dbname=dbname"
-                user: user
-                password: password
+                dsn: "mysql:host=YOUR_HOSTNAME;dbname=YOUR_DB_NAME"
+                user: YOUR_USERNAME
+                password: YOUR_PASSWORD
                 attributes:
     reverse:
         connection: default
@@ -21,7 +21,7 @@ propel:
         log:
             defaultLogger:
                 type: stream
-                path: /Library/WebServer/Documents/invoice_importer/logs/propel.log
+                path: YOUR_LOG_PATH
                 level: 300
     generator:
         defaultConnection: default

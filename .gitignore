@@ -1,6 +1,5 @@
 .idea/
 composer.lock
-logs/
 propel.yaml
 model/classes/Freisicht/InvoiceImporter/Base
 model/classes/Freisicht/InvoiceImporter/Map
@@ -10,3 +9,4 @@ model/migrations/
 config/propel/config.php
 config/apis/gsales.json
 config/apis/mite.json
+config/app.json
