@@ -21,7 +21,7 @@ A working Apache-Server with PHP 7 and MySQL.
 
 You can choose between two installation processes — automatic (recommended) or manual.
 
-The automatic installation uses exec to build the required configuration files to keep the system running — it may not work on Windows Server environments. In that case, you would have to the manual method.
+The automatic installation uses exec to build the required configuration files to keep the system running — it may not work on Windows Server environments. In that case, you would have to use the manual method.
 
 For both methods, you need to clone
 
