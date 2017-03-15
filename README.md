@@ -5,7 +5,7 @@
 
 Import your tracked time from your [Mite][mite-url]-projects to the corresponding [gSales][gsales-url]-projects with ease.
 
-(( SCREENSHOT VOM USERINTERFACE ))
+![interface-mockup](img/interface-mockup.png)
 
 ## Background
 
@@ -33,7 +33,7 @@ or [download](WE_NEED_A_LINK_LOL) this repository first.
 
 Be sure to make the target folder callable for the browser (e.g. `localhost/mite-gsales-importer`).
 
-<details><summary>**Automatic Installation** (click to view)</summary><p>
+<details><summary>Automatic Installation (click to view)</summary><p>
 
 ---
 
@@ -42,9 +42,9 @@ Be sure to make the target folder callable for the browser (e.g. `localhost/mite
 1.  Check the access-rights of the folders `/`, `/config` and `/logs`
 2.  The database should exist beforehand
 
-Simply open the cloned project in your browser, it will open a form where you can input the details for Mite, gSales and the database.
+Open the cloned project in your browser (`mite-gsales-importer/web/index.php`), it will open a form where you can input the details for Mite, gSales and the database.
 
-(( SCREENSHOT AUTOINSTALL FORM ))
+![autoinstall](img/autoinstall.png)
 
 After submitting, it will automatically create configuration-files filled with your information.
 
@@ -56,7 +56,9 @@ Remove the `/config/app.json` file to repeat the process.
 
 </p></details>
 
-<details><summary>**Manual Installation** (click to view)</summary><p>
+
+
+<details><summary>Manual Installation (click to view)</summary><p>
 
 ---
 
@@ -89,6 +91,7 @@ Done!
 ---
 
 </p></details>
+
 
 We recommend using some kind of authentication process (e.g. simple http auth) to prevent unauthorized usage.
 
