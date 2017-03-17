@@ -97,4 +97,12 @@ We recommend using some kind of authentication process (e.g. simple http auth) t
 
 ## Usage
 
-coming soon
+Before you import your Mite-Trackings, you will be able to
+
+* connect gSales- and Mite-Customers
+* mark Customers or Mite-Projects which will get skipped in the process
+* manage which Projects will be in a collective / separate Invoice
+
+After the configuration you can initiate the import process by choosing a date-range. This will bring up an overview of Customers which have tracked entries in that range. You can exclude Customers or projects one last time before clicking "import" and let the importer do its magic.
+
+Congrats - You converted your Mite times into gSales invoices in no-time! Be sure to review the generated Invoices before sending them out, you can never know if there are any (human) errors.
