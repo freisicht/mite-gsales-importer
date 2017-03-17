@@ -1,51 +1,108 @@
-# mite-gsales-importer
-Import time tracking entries you made in mite to gsales
+[mite-url]: https://mite.yo.lk/
+[gsales-url]: https://www.gsales.de/
 
-##Requirements
-PHP 7.0
+# Mite -> gSales Importer
 
-##Setup
-For the installtion you can chose between 2 proccesses. Just follow the instructions of the [Automatic Insallation](#automatic) or [Manual Installation](#manual).
+Import your tracked time from your [Mite][mite-url]-projects to the corresponding [gSales][gsales-url]-projects with ease.
 
-###<a name="automatic"></a>Automatic Installation
-When u open the Webpage first you will see a setup formular which is asking for certain information.
-It basicly takes all the Data and automaticly performs the required processes needed for the project.
+![interface-mockup](img/interface-mockup.png)
 
-Things to check before processing:
+## Background
 
-- give your folders the correct access rights (7,7,7 - you can change them back afterwards), so that php can call all required exec commands
-- create the database you want to use, otherwise propel will throw exceptions
-- find out your composer homepath. Php is using exec commands, so it requires the env-variable composer homepath to run correctly (for us it was in the path below the projekt path, on local machines it should be the ../user/.composer/ folder)
+It's already possible to import tracked times from Mite to gSales, but after some time we noticed that we needed a better solution. Using the existing method is complicated and we needed additional features which required a new interface.
 
-If you want to repeat this process just remove the /config/app.json file and call your page again.
+Essentially, we wanted to create Invoices for Customers who have tracked time-entries in the latest month. Some projects should be in a separate Invoice, some could get summarized. And some time tracking entries would get skipped because there already is an 
 
-###<a name="manual"></a>Manual Installation
-create an empty app.json file in the config folder
+## Requirements
 
-####Deactiate automatic installation
-- Create an empty file `/config/app.json`
+A working Apache-Server with PHP 7 and MySQL.
 
-####Log
-- Create an empty file `/log/app.log`
+## Setup
 
-####Propel
-- Copy the `propel.yaml.dist` file and rename it to `propel.yaml`
-- Adjust the database connection information
-- Set the correct path for the `propel.log` file
+You can choose between two installation processes — automatic (recommended) or manual.
 
-####Apis Connection Data
-- Copy the `config/apis/gsales.json.dist` file and rename it to `config/apis/gsales.json`
-- Copy the `config/apis/mite.json.dist` file and rename it to `config/apis/mite.json`
-- In each set your connection information
+The automatic installation uses exec to build the required configuration files to keep the system running — it may not work on Windows Server environments. In that case, you would have to use the manual method.
 
-####Database
-- Create an empty datanbase with the same name from the propel.yaml file
+For both methods, you need to clone
 
-####Command Line
-- `php composer.phar install` // installs all the composer packages required for the project
-- `vendor/bin/propel convert-conf` // converts your settings in the propel.yaml to a config file
-- `vendor/bin/propel migration:diff` // generates a migration file to prepare the changes for your database
-- `vendor/bin/propel migration:migrate` // executes the changes for your database
-- `vendor/bin/propel model:build` // generates the propel models
-- `php composer.phar dump-autoload` // builds the autoload file, required after propels model build
+```
+git clone https://github.com/freisicht/mite-gsales-importer.git [TARGET FOLDER]
+```
 
+or [download](WE_NEED_A_LINK_LOL) this repository first.
+
+Be sure to make the target folder callable for the browser (e.g. `localhost/mite-gsales-importer`).
+
+<details><summary>Automatic Installation (click to view)</summary><p>
+
+---
+
+**Requirements before installing**:
+
+1.  Check the access-rights of the folders `/`, `/config` and `/logs`
+2.  The database should exist beforehand
+
+Open the cloned project in your browser (`mite-gsales-importer/web/index.php`), it will open a form where you can input the details for Mite, gSales and the database.
+
+![autoinstall](img/autoinstall.png)
+
+After submitting, it will automatically create configuration-files filled with your information.
+
+Done!
+
+Remove the `/config/app.json` file to repeat the process.
+
+---
+
+</p></details>
+
+
+
+<details><summary>Manual Installation (click to view)</summary><p>
+
+---
+
+Keep an eye for the access-rights for the directories during this whole process, since PHP tries to generate files.
+
+1. Create an empty file `/config/app.json` to stop the automatic installation process.
+2. Create an empty file `/log/app.log` for the internal logging mechanism (Kann man nicht einfach das Ding direkt mit in die Repo packen?)
+3. Copy `/propel.yaml.dist`, rename it to `propel.yaml` and adjust the database connection information accordingly. Create the database if it does not exist yet.
+4. Repeat the process for `config/apis/gsales.json.dist` and `config/apis/mite.json.dist`
+
+After these steps, we need to install the [Composer](https://getcomposer.org/) dependencies and let them do their work! Open the terminal and navigate to the repository folder and follow these last steps:
+
+**Install the composer dependencies**
+
+* if you have installed composer, you can run `composer install`
+* otherwise `php composer.phar install`
+
+Sometimes the php-executable is not just `php`, in that case you should look up your php executable and replace it with `php`.
+
+**Install database and create model-files with Propel**
+
+* `vendor/bin/propel convert-conf` — Converts the `propel.yaml` file into a php file
+* `vendor/bin/propel migration:diff` — creates a migration file that will modify the database
+* `vendor/bin/propel migration:migrate` — applies the migration file (at that point your database should be good to go)
+* `vendor/bin/propel model:build` — builds the model-files for PHP
+* `php composer.phar dump-autoload` — builds the autoload-file, same composer rules apply for this command
+
+Done!
+
+---
+
+</p></details>
+
+
+We recommend using some kind of authentication process (e.g. simple http auth) to prevent unauthorized usage.
+
+## Usage
+
+Before you import your Mite-Trackings, you will be able to
+
+* connect gSales- and Mite-Customers
+* mark Customers or Mite-Projects which will get skipped in the process
+* manage which Projects will be in a collective / separate Invoice
+
+After the configuration you can initiate the import process by choosing a date-range. This will bring up an overview of Customers which have tracked entries in that range. You can exclude Customers or projects one last time before clicking "import" and let the importer do its magic.
+
+Congrats - You converted your Mite times into gSales invoices in no-time! Be sure to review the generated Invoices before sending them out, you can never know if there are any (human) errors.
